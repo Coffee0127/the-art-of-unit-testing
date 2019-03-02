@@ -15,6 +15,16 @@ public class MemCalculatorTest {
         Assert.assertEquals(0, lastSum);
     }
 
+    @Test
+    public void Add_WhenCalled_ChangesSum() {
+        MemCalculator calc = makeCalc();
+
+        calc.add(1);
+        int sum = calc.sum();
+
+        Assert.assertEquals(1, sum);
+    }
+
     private MemCalculator makeCalc() {
         return new MemCalculator();
     }
