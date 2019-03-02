@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+}
+
+group 'com.osherove'
+version '2.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
