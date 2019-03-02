@@ -82,7 +82,7 @@ public class LogAnalyzerTest {
             this.expected = expected;
         }
 
-        @Parameters
+        @Parameters(name = "file {0} => result is {1}")
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][] {
                 { "filewithgoodextension.SLF", true },
