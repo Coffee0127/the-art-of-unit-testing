@@ -1,9 +1,14 @@
 package com.osherove.ch2;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Enclosed.class)
 public class LogAnalyzerTest {
@@ -36,6 +41,29 @@ public class LogAnalyzerTest {
             LogAnalyzer analyzer = new LogAnalyzer();
 
             boolean result = analyzer.isValidLogFileName("filewithgoodextension.slf");
+
+            Assert.assertTrue(result);
+        }
+    }
+
+    @RunWith(Parameterized.class)
+    public static class ParameterizedTest {
+        private String file;
+
+        public ParameterizedTest(String file) {
+            this.file = file;
+        }
+
+        @Parameters
+        public static Collection<String> data() {
+            return Collections.singletonList("filewithgoodextension.SLF");
+        }
+
+        @Test
+        public void IsValidLogFileName_ValidExtensions_ReturnsTrue() {
+            LogAnalyzer analyzer = new LogAnalyzer();
+
+            boolean result = analyzer.isValidLogFileName(this.file);
 
             Assert.assertTrue(result);
         }
