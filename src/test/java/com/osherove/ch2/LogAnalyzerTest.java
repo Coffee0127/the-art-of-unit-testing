@@ -72,4 +72,33 @@ public class LogAnalyzerTest {
         }
     }
 
+    @RunWith(Parameterized.class)
+    public static class Parameterized_WithCheckTest {
+        private String file;
+        private boolean expected;
+
+        public Parameterized_WithCheckTest(String file, boolean expected) {
+            this.file = file;
+            this.expected = expected;
+        }
+
+        @Parameters
+        public static Collection<Object[]> data() {
+            return Arrays.asList(new Object[][] {
+                { "filewithgoodextension.SLF", true },
+                { "filewithgoodextension.slf", true },
+                { "filewithbadextension.foo", false }
+            });
+        }
+
+        @Test
+        public void IsValidLogFileName_VariousExtensions_ChecksThem() {
+            LogAnalyzer analyzer = new LogAnalyzer();
+
+            boolean result = analyzer.isValidLogFileName(this.file);
+
+            Assert.assertEquals(this.expected, result);
+        }
+    }
+
 }
