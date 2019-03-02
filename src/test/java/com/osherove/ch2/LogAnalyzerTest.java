@@ -1,7 +1,7 @@
 package com.osherove.ch2;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -56,7 +56,10 @@ public class LogAnalyzerTest {
 
         @Parameters
         public static Collection<String> data() {
-            return Collections.singletonList("filewithgoodextension.SLF");
+            return Arrays.asList(
+                "filewithgoodextension.SLF",
+                "filewithgoodextension.slf"
+            );
         }
 
         @Test
