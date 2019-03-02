@@ -67,6 +67,15 @@ public class LogAnalyzerTest {
         private LogAnalyzer makeAnalyzer() {
             return new LogAnalyzer();
         }
+
+        @Test
+        public void IsValidLogFileName_WhenCalled_ChangesWasLastFileNameValid() {
+            LogAnalyzer la = makeAnalyzer();
+
+            la.isValidLogFileName("badname.foo");
+
+            Assert.assertFalse(la.isWasLastFileNameValid());
+        }
     }
 
     @RunWith(Parameterized.class)
