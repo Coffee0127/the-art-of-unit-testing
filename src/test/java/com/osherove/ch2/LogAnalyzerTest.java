@@ -3,9 +3,12 @@ package com.osherove.ch2;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.hamcrest.core.StringContains;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -14,6 +17,10 @@ import org.junit.runners.Parameterized.Parameters;
 public class LogAnalyzerTest {
 
     public static class NonParameterizedTest {
+
+        @Rule
+        public ExpectedException thrown = ExpectedException.none();
+
         @Test
         public void IsValidLogFileName_BadExtension_ReturnsFalse() {
             // 單元測試包含了三個行為 (3A)
@@ -45,8 +52,14 @@ public class LogAnalyzerTest {
             Assert.assertTrue(result);
         }
 
-        @Test(expected = IllegalArgumentException.class)
+        // 不推薦使用 expected，因為無法確認是否為預期行數拋出例外
+        @Test/*(expected = IllegalArgumentException.class)*/
         public void IsValidLogFileName_EmptyFileName_ThrowsException() {
+            // 改使用 org.junit.rules.ExpectedException
+            thrown.expect(IllegalArgumentException.class);
+            // 不需要做到精確比對
+            thrown.expectMessage(StringContains.containsString("filename has to be provided"));
+
             LogAnalyzer analyzer = makeAnalyzer();
             analyzer.isValidLogFileName("");
         }
