@@ -8,12 +8,6 @@ public class LogAnalyzer {
 
     public LogAnalyzer() {
         this.manager = new FileExtensionManager();
-        // or calling other constructor
-        // this(new FileExtensionManager());
-    }
-
-    public LogAnalyzer(IExtensionManager manager) {
-        this.manager = manager;
     }
 
     public boolean isValidLogFileName(String fileName) {

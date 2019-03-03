@@ -81,7 +81,8 @@ public class LogAnalyzerTest {
             FakeExtensionManager myFakeManager = new FakeExtensionManager();
             myFakeManager.willThrow = new RuntimeException("this is fake");
 
-            LogAnalyzer log = new LogAnalyzer(myFakeManager);
+            LogAnalyzer log = new LogAnalyzer();
+            log.setManager(myFakeManager);
             boolean result = log.isValidLogFileName("anything.anyextension");
             Assert.assertFalse(result);
         }
@@ -104,7 +105,10 @@ public class LogAnalyzerTest {
     private static LogAnalyzer makeAnalyzer(boolean willBeValid) {
         FakeExtensionManager myFakeManager = new FakeExtensionManager();
         myFakeManager.willBeValid = willBeValid;
-        return new LogAnalyzer(myFakeManager);
+
+        LogAnalyzer logAnalyzer = new LogAnalyzer();
+        logAnalyzer.setManager(myFakeManager);
+        return logAnalyzer;
     }
 
     @RunWith(Parameterized.class)
