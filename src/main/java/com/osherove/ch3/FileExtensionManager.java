@@ -9,7 +9,7 @@ import java.util.List;
 import com.amihaiemil.eoyaml.Yaml;
 import com.amihaiemil.eoyaml.YamlSequence;
 
-public class FileExtensionManager {
+public class FileExtensionManager implements IExtensionManager {
 
     private static final List<String> AVAILABLE_EXTENSIONS;
 
@@ -28,6 +28,7 @@ public class FileExtensionManager {
         }
     }
 
+    @Override
     public boolean isValid(String fileName) {
         if (fileName == null || fileName.length() == 0) {
             throw new IllegalArgumentException("filename has to be provided");

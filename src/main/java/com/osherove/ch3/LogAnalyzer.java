@@ -6,7 +6,7 @@ public class LogAnalyzer {
 
     public boolean isValidLogFileName(String fileName) {
         wasLastFileNameValid = false;
-        FileExtensionManager mgr = new FileExtensionManager();
+        IExtensionManager mgr = new FileExtensionManager();
         if (!mgr.isValid(fileName)) {
             return false;
         }
