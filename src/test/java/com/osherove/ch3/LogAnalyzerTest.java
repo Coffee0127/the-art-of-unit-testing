@@ -100,6 +100,17 @@ public class LogAnalyzerTest {
             // assert logic assuming extension is supported
             Assert.assertTrue(log.isValidLogFileName("anything.anyextension"));
         }
+
+        @Test
+        public void overrideTest() {
+            FakeExtensionManager stub = new FakeExtensionManager();
+            stub.willBeValid = true;
+
+            TestableLogAnalyzer logan = new TestableLogAnalyzer(stub);
+            boolean result = logan.isValidLogFileName("file.ext");
+
+            Assert.assertTrue(result);
+        }
     }
 
     private static LogAnalyzer makeAnalyzer(boolean willBeValid) {
@@ -177,6 +188,19 @@ public class LogAnalyzerTest {
                 throw willThrow;
             }
             return willBeValid;
+        }
+    }
+
+    private static class TestableLogAnalyzer extends LogAnalyzerUsingFactoryMethod {
+        IExtensionManager manager;
+
+        TestableLogAnalyzer(IExtensionManager manager) {
+            this.manager = manager;
+        }
+
+        @Override
+        protected IExtensionManager getManager() {
+            return manager;
         }
     }
 
