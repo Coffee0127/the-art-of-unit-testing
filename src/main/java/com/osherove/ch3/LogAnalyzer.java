@@ -6,16 +6,20 @@ public class LogAnalyzer {
 
     public boolean isValidLogFileName(String fileName) {
         wasLastFileNameValid = false;
-        if (fileName == null || fileName.length() == 0) {
-            throw new IllegalArgumentException("filename has to be provided");
-        }
-
-        if (!fileName.toUpperCase().endsWith(".SLF")) {
+        if (!isValid(fileName)) {
             return false;
         }
 
         wasLastFileNameValid = true;
         return true;
+    }
+
+    private boolean isValid(String fileName) {
+        if (fileName == null || fileName.length() == 0) {
+            throw new IllegalArgumentException("filename has to be provided");
+        }
+
+        return fileName.toUpperCase().endsWith(".SLF");
     }
 
     public boolean isWasLastFileNameValid() {
