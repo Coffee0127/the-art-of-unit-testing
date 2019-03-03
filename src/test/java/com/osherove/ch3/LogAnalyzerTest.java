@@ -85,6 +85,20 @@ public class LogAnalyzerTest {
             boolean result = log.isValidLogFileName("anything.anyextension");
             Assert.assertFalse(result);
         }
+
+        @Test
+        public void IsValidFileName_SupportedExtension_ReturnsTrue() {
+            // set up the stub to use, make sure it returns true
+            FakeExtensionManager myFakeManager = new FakeExtensionManager();
+            myFakeManager.willBeValid = true;
+
+            // create analyzer and inject stub
+            LogAnalyzer log = new LogAnalyzer();
+            log.setManager(myFakeManager);
+
+            // assert logic assuming extension is supported
+            Assert.assertTrue(log.isValidLogFileName("anything.anyextension"));
+        }
     }
 
     private static LogAnalyzer makeAnalyzer(boolean willBeValid) {
