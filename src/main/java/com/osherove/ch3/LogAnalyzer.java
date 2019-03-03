@@ -11,7 +11,11 @@ public class LogAnalyzer {
 
     public boolean isValidLogFileName(String fileName) {
         wasLastFileNameValid = false;
-        if (!mgr.isValid(fileName)) {
+        try {
+            if (!mgr.isValid(fileName)) {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
 
