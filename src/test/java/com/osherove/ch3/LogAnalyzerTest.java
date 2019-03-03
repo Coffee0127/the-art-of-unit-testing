@@ -111,6 +111,15 @@ public class LogAnalyzerTest {
 
             Assert.assertTrue(result);
         }
+
+        @Test
+        public void overrideTestWithoutStub() {
+            TestableLogAnalyzer_AnotherWay logan = new TestableLogAnalyzer_AnotherWay();
+            logan.isSupported = true;
+            boolean result = logan.isValidLogFileName("file.ext");
+
+            Assert.assertTrue(result);
+        }
     }
 
     private static LogAnalyzer makeAnalyzer(boolean willBeValid) {
@@ -201,6 +210,16 @@ public class LogAnalyzerTest {
         @Override
         protected IExtensionManager getManager() {
             return manager;
+        }
+    }
+
+    private static class TestableLogAnalyzer_AnotherWay extends LogAnalyzerUsingFactoryMethod_AnotherWay {
+        boolean isSupported;
+
+        @Override
+        protected boolean isValid(String fileName) {
+            // 回傳測試程式中所設定的假值
+            return isSupported;
         }
     }
 
