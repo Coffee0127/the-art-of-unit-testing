@@ -133,4 +133,14 @@ public class LogAnalyzerTest {
         }
     }
 
+    private static class FakeExtensionManager implements IExtensionManager {
+
+        public boolean willBeValid = false;
+
+        @Override
+        public boolean isValid(String fileName) {
+            return willBeValid;
+        }
+    }
+
 }
