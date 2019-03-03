@@ -1,6 +1,5 @@
 package com.osherove.ch4;
 
-import org.hamcrest.core.StringContains;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,9 +15,11 @@ public class LogAnalyzer2Test {
 
         log.analyze(tooShortFileName);
 
-        Assert.assertThat(mockEmail.to, StringContains.containsString("someone@somewhere.com"));
-        Assert.assertThat(mockEmail.body, StringContains.containsString("fake exception"));
-        Assert.assertThat(mockEmail.subject, StringContains.containsString("can't log"));
+        // 建立期望物件
+        EmailInfo expectedEmail = new EmailInfo("someone@somewhere.com", "can't log", "fake exception");
+
+        // 驗證實際物件上所有的屬性值是否與期望物件相同
+        Assert.assertEquals(expectedEmail, mockEmail.emailInfo);
     }
 
 }

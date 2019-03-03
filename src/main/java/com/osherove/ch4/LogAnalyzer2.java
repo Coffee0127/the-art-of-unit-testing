@@ -15,7 +15,7 @@ public class LogAnalyzer2 {
             try {
                 service.logError("Filename too short:" + fileName);
             } catch (Exception e) {
-                email.sendEmail("someone@somewhere.com", "can't log", e.getMessage());
+                email.sendEmail(new EmailInfo("someone@somewhere.com", "can't log", e.getMessage()));
             }
         }
     }
