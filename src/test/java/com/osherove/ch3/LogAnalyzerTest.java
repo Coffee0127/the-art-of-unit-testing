@@ -76,6 +76,15 @@ public class LogAnalyzerTest {
             Assert.assertFalse(la.isWasLastFileNameValid());
         }
 
+        @Test
+        public void IsValidFileName_ExtManagerThrowsException_ReturnsFalse() {
+            FakeExtensionManager myFakeManager = new FakeExtensionManager();
+            myFakeManager.willThrow = new RuntimeException("this is fake");
+
+            LogAnalyzer log = new LogAnalyzer(myFakeManager);
+            boolean result = log.isValidLogFileName("anything.anyextension");
+            Assert.assertFalse(result);
+        }
     }
 
     private static LogAnalyzer makeAnalyzer(boolean willBeValid) {
@@ -142,9 +151,13 @@ public class LogAnalyzerTest {
     private static class FakeExtensionManager implements IExtensionManager {
 
         public boolean willBeValid = false;
+        public RuntimeException willThrow = null;
 
         @Override
         public boolean isValid(String fileName) {
+            if (willThrow != null) {
+                throw willThrow;
+            }
             return willBeValid;
         }
     }
