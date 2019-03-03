@@ -92,10 +92,10 @@ public class LogAnalyzerTest {
             // set up the stub to use, make sure it returns true
             FakeExtensionManager myFakeManager = new FakeExtensionManager();
             myFakeManager.willBeValid = true;
+            ExtensionManagerFactory.setCustomManager(myFakeManager);
 
             // create analyzer and inject stub
             LogAnalyzer log = new LogAnalyzer();
-            log.setManager(myFakeManager);
 
             // assert logic assuming extension is supported
             Assert.assertTrue(log.isValidLogFileName("anything.anyextension"));
