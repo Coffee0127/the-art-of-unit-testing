@@ -17,4 +17,15 @@ public class MockitoBasics {
         Assert.assertTrue(fakeRules.isValidLogFileName("strict.txt"));
     }
 
+    @Test
+    public void Returns_ArgAny_IgnoresArgument() {
+        IFileNameRules fakeRules = Mockito.mock(IFileNameRules.class);
+
+        // 忽略參數內容，即任意字串
+        Mockito.when(fakeRules.isValidLogFileName(Mockito.anyString()))
+            .thenReturn(true);
+
+        Assert.assertTrue(fakeRules.isValidLogFileName("anything.txt"));
+    }
+
 }
