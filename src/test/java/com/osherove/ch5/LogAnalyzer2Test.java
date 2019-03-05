@@ -70,4 +70,22 @@ public class LogAnalyzer2Test {
             }
         }
     }
+
+    @Test
+    public void Analyze_LoggerThrows_CallsWebServiceWithObject_ByMockito() {
+        FakeWebService mockWebService = Mockito.spy(FakeWebService.class);
+        FakeLogger2 stubLogger = Mockito.mock(FakeLogger2.class);
+        Mockito.doThrow(new RuntimeException("fake exception"))
+            .when(stubLogger).logError(Mockito.anyString());
+
+        LogAnalyzer2 analyzer2 = new LogAnalyzer2(stubLogger, mockWebService);
+        analyzer2.setMinNameLength(8);
+        String tooShortFileName = "abc.ext";
+        analyzer2.analyze2(tooShortFileName);
+
+        Mockito.verify(mockWebService, Mockito.times(1))
+            .write(Matchers.eq(new ErrorInfo(1000, "fake exception")));
+        // 若無法實作 equals() 可使用 org.mockito.Matchers.refEq 比對屬性
+        // .write(Matchers.refEq(new ErrorInfo(1000, "fake exception")));
+    }
 }

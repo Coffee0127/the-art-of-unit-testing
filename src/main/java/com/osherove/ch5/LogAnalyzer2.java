@@ -21,6 +21,16 @@ public class LogAnalyzer2 {
         }
     }
 
+    public void analyze2(String filename) {
+        if (filename.length() < minNameLength) {
+            try {
+                logger.logError(String.format("Filename too short: %s", filename));
+            } catch (Exception e) {
+                webService.write(new ErrorInfo(1000, e.getMessage()));
+            }
+        }
+    }
+
     public int getMinNameLength() {
         return minNameLength;
     }
