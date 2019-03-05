@@ -50,6 +50,11 @@ public class LogAnalyzer2Test {
         public void write(String message) {
             messageToWebService = message;
         }
+
+        @Override
+        public void write(ErrorInfo message) {
+            messageToWebService = message.getMessage();
+        }
     }
 
     // 用虛設常式物件來模擬 logger 拋出例外
