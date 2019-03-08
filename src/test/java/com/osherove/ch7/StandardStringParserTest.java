@@ -3,7 +3,7 @@ package com.osherove.ch7;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class StandardStringParserTest {
+public class StandardStringParserTest extends TemplateStringParserTests {
 
     // 定義解析器的工廠方法
     private StandardStringParser getParser(String input) {
@@ -11,6 +11,7 @@ public class StandardStringParserTest {
     }
 
     @Test
+    @Override
     public void TestGetStringVersionFromHeader_SingleDigit_Found() {
         String input = "header;version=1;\n";
         // 使用工廠方法
@@ -20,6 +21,7 @@ public class StandardStringParserTest {
     }
 
     @Test
+    @Override
     public void TestGetStringVersionFromHeader_WithMinorVersion_Found() {
         String input = "header;version=1.1;\n";
         // 使用工廠方法
@@ -29,6 +31,7 @@ public class StandardStringParserTest {
     }
 
     @Test
+    @Override
     public void TestGetStringVersionFromHeader_WithRevision_Found() {
         String input = "header;version=1.1.1;\n";
         // 使用工廠方法
